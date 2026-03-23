@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   createVisit,
@@ -55,6 +55,29 @@ function createInitialSections(): Record<SectionKey, SectionState> {
   };
 }
 
+const initialDraftSections = createInitialSections();
+
+function cloneInitialSections(): Record<SectionKey, SectionState> {
+  return {
+    property: { ...initialDraftSections.property },
+    building: { ...initialDraftSections.building },
+    neighborhood: { ...initialDraftSections.neighborhood },
+    redflags: { ...initialDraftSections.redflags }
+  };
+}
+
+function isInitialDraftState(
+  sections: Record<SectionKey, SectionState>,
+  recommendation: string,
+  attachmentNames: string[]
+): boolean {
+  return (
+    recommendation.trim() === "" &&
+    attachmentNames.length === 0 &&
+    JSON.stringify(sections) === JSON.stringify(initialDraftSections)
+  );
+}
+
 const autosaveKey = "imjang-visit-draft";
 
 type VisitDraft = {
@@ -74,7 +97,7 @@ type UploadRecovery = {
 export function ChecklistWorkspace() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [selectedPropertyId, setSelectedPropertyId] = useState("");
-  const [sections, setSections] = useState(createInitialSections);
+  const [sections, setSections] = useState(cloneInitialSections);
   const [recommendation, setRecommendation] = useState("");
   const [attachments, setAttachments] = useState<File[]>([]);
   const [draftAttachmentNames, setDraftAttachmentNames] = useState<string[]>([]);
@@ -85,6 +108,7 @@ export function ChecklistWorkspace() {
   const [draftRestored, setDraftRestored] = useState(false);
   const [autosaveStatus, setAutosaveStatus] = useState<string | null>(null);
   const [uploadRecovery, setUploadRecovery] = useState<UploadRecovery | null>(null);
+  const autosavePausedRef = useRef(false);
 
   useEffect(() => {
     async function load() {
@@ -124,11 +148,23 @@ export function ChecklistWorkspace() {
       return;
     }
 
+    if (autosavePausedRef.current) {
+      autosavePausedRef.current = false;
+      return;
+    }
+
+    const attachmentNames = attachments.length > 0 ? attachments.map((attachment) => attachment.name) : draftAttachmentNames;
+    if (isInitialDraftState(sections, recommendation, attachmentNames)) {
+      window.localStorage.removeItem(autosaveKey);
+      setAutosaveStatus(null);
+      return;
+    }
+
     const draft: VisitDraft = {
       selectedPropertyId,
       sections,
       recommendation,
-      attachmentNames: attachments.length > 0 ? attachments.map((attachment) => attachment.name) : draftAttachmentNames
+      attachmentNames
     };
     window.localStorage.setItem(autosaveKey, JSON.stringify(draft));
     setAutosaveStatus(`Draft autosaved at ${new Date().toLocaleTimeString()}`);
@@ -167,9 +203,10 @@ export function ChecklistWorkspace() {
   }
 
   function resetSavedVisitForm() {
-    setSections(createInitialSections());
+    setSections(cloneInitialSections());
     setRecommendation("");
     setDraftRestored(false);
+    setAutosaveStatus(null);
   }
 
   async function refreshVisit(propertyId: string, visitId: string, fallback: Visit): Promise<Visit> {
@@ -235,6 +272,7 @@ export function ChecklistWorkspace() {
       }
 
       setLastVisit(updatedVisit);
+      autosavePausedRef.current = true;
       clearDraftStorage();
       resetSavedVisitForm();
 
@@ -255,6 +293,7 @@ export function ChecklistWorkspace() {
 
       setAttachments([]);
       setDraftAttachmentNames([]);
+      setAutosaveStatus(null);
       setStatusMessage("Visit saved and all attachments uploaded.");
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Failed to complete visit");
@@ -297,6 +336,9 @@ export function ChecklistWorkspace() {
       setAttachments([]);
       setDraftAttachmentNames([]);
       setUploadRecovery(null);
+      clearDraftStorage();
+      autosavePausedRef.current = true;
+      setAutosaveStatus(null);
       setStatusMessage("Remaining attachments uploaded successfully.");
     } catch (retryError) {
       setError(retryError instanceof Error ? retryError.message : "Failed to retry attachment uploads");

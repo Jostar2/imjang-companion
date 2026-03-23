@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 
 from services.api.app.core.store import reset_store
 from services.api.app.main import app
+from services.api.app.services.resource_cleanup import storage_service
 
 
 client = TestClient(app)
@@ -169,6 +170,53 @@ def test_binary_attachment_upload_links_file_to_visit() -> None:
     assert payload["filename"] == "living-room.jpg"
     assert payload["size_bytes"] == len(b"binary-image-data")
     assert payload["storage_key"].startswith("artifacts/uploads/")
+
+
+def test_deleting_property_removes_uploaded_binaries_from_storage(monkeypatch) -> None:
+    deleted_keys: list[str] = []
+    monkeypatch.setattr(storage_service, "delete", lambda storage_key: deleted_keys.append(storage_key))
+
+    headers = auth_headers()
+    property_id = create_property(headers)
+    visit_response = client.post("/visits", json={"property_id": property_id, "visit_date": "2026-03-22"}, headers=headers)
+    visit_id = visit_response.json()["id"]
+
+    upload_response = client.post(
+        f"/visits/{visit_id}/attachments/upload",
+        data={"category": "living-room"},
+        files={"file": ("living room.jpg", b"binary-image-data", "image/jpeg")},
+        headers=headers,
+    )
+    storage_key = upload_response.json()["storage_key"]
+
+    delete_response = client.delete(f"/properties/{property_id}", headers=headers)
+
+    assert delete_response.status_code == 204
+    assert deleted_keys == [storage_key]
+
+
+def test_deleting_project_removes_uploaded_binaries_from_storage(monkeypatch) -> None:
+    deleted_keys: list[str] = []
+    monkeypatch.setattr(storage_service, "delete", lambda storage_key: deleted_keys.append(storage_key))
+
+    headers = auth_headers()
+    project_id = create_project(headers)
+    property_id = create_property(headers, project_id=project_id)
+    visit_response = client.post("/visits", json={"property_id": property_id, "visit_date": "2026-03-22"}, headers=headers)
+    visit_id = visit_response.json()["id"]
+
+    upload_response = client.post(
+        f"/visits/{visit_id}/attachments/upload",
+        data={"category": "living-room"},
+        files={"file": ("living room.jpg", b"binary-image-data", "image/jpeg")},
+        headers=headers,
+    )
+    storage_key = upload_response.json()["storage_key"]
+
+    delete_response = client.delete(f"/projects/{project_id}", headers=headers)
+
+    assert delete_response.status_code == 204
+    assert deleted_keys == [storage_key]
 
 
 def test_visit_is_scoped_to_owner() -> None:

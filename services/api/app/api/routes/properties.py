@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from services.api.app.core.auth import get_current_user, require_global_scope, require_owner_resource_access
 from services.api.app.core.db import ProjectRecord, PropertyRecord, UserRecord, get_session
 from services.api.app.schemas.property import PropertyCreate, PropertyResponse, PropertyUpdate
+from services.api.app.services.resource_cleanup import delete_property_storage
 
 router = APIRouter(prefix="/properties", tags=["properties"])
 
@@ -126,6 +127,7 @@ def delete_property(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Property not found")
     require_owner_resource_access(current_user, project.owner_user_id, detail="Property not found")
 
+    delete_property_storage(property_item)
     session.delete(property_item)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

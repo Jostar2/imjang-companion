@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from services.api.app.core.auth import get_current_user, require_global_scope, require_owner_resource_access
 from services.api.app.core.db import ProjectRecord, UserRecord, get_session
 from services.api.app.schemas.project import ProjectCreate, ProjectResponse, ProjectUpdate
+from services.api.app.services.resource_cleanup import delete_project_storage
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
@@ -108,6 +109,7 @@ def delete_project(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
     require_owner_resource_access(current_user, project.owner_user_id, detail="Project not found")
 
+    delete_project_storage(project)
     session.delete(project)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
