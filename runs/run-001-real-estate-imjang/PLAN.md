@@ -4,23 +4,23 @@
 - Name: Imjang Companion MVP
 - Owner: Codex local manager
 - Stack: Next.js + FastAPI + PostgreSQL + S3 + AWS ECS
-- Repo: C:\Users\josta\Downloads\codex-launch-os
+- Repo: C:\Users\josta\Downloads\imjang-companion
 - Run ID: run-001-real-estate-imjang
-- Operating mode: `local-bootstrap`
+- Operating mode: `standalone-product-repo`
 
 ## Goal
-- 이번 실행의 목표: planning package를 만들고 bounded implementation task를 정의한다
-- 성공 기준: PRD, scope, acceptance, architecture, risk, task graph, task packet 2개 이상 생성
+- 이번 실행의 목표: 현재 구현 상태를 기준으로 v1 범위를 고정하고, staging readiness와 첫 paid pilot 준비 문서를 launch-ready 수준으로 정리한다
+- 성공 기준: offline boundary, autosave behavior, release smoke, launch artifacts, and pilot assumptions가 현재 구현과 일치한다
 - 배포 대상: staging readiness only
 
 ## Scope
 ### In
-- visit project 생성
-- property 등록
-- visit checklist
-- notes/scores/photos
-- comparison view
-- summary report
+- authenticated project/property CRUD
+- visit capture with required checklist sections
+- browser-local autosave and same-browser draft restore
+- attachment upload and failed-upload retry UX
+- comparison and report read views
+- release, smoke, and pilot-launch artifacts
 
 ### Out
 - live brokerage integration
@@ -28,38 +28,39 @@
 - legal due diligence
 - realtime collaboration
 - production release
+- partial offline queueing 또는 sync
+- offline attachment upload
+- cross-device draft restore
 
 ## Constraints
 - mobile-first UX
 - staging required
 - prod manual approval
 - no heavy external listing integrations in v1
+- visit writes와 attachment upload는 v1에서 online-first로 유지
+- single-user owner scope를 넘는 collaboration은 v1 범위 밖
 
 ## Acceptance criteria
-- [ ] user can create a visit project
-- [ ] user can register candidate properties
-- [ ] user can complete a visit checklist with notes, scores, and photos
-- [ ] comparison view shows score and red flags
-- [ ] summary report can be generated for a visited property
+- [ ] product docs와 run docs가 current implementation과 같은 방향을 가리킨다
+- [ ] autosave restore와 attachment retry가 smoke와 launch docs에 반영된다
+- [ ] launch artifact 파일이 존재하고 pilot 준비에 바로 쓸 수 있다
+- [ ] next tasks가 실제 남은 human gates와 business validation으로 압축된다
 
 ## Open questions
-- blocker: offline draft-save required or nice-to-have?
+- blocker: none currently. `offline_support_decision` is closed for v1 as `online-first + browser-local autosave/restore`.
 - non-blocker: partner sharing as view-only in v1 or later?
 
 ## Task graph
-1. planner outputs
-2. architect outputs
-3. BE-001 project/property CRUD
-4. BE-002 visit checklist and scoring
-5. FE-001 mobile project/property screens
-6. FE-002 visit checklist flow
-7. QA-001 regression and smoke plan
-8. INF-001 upload and staging readiness
+1. populate staging secrets
+2. refresh smoke coverage for autosave restore and attachment retry
+3. finalize launch artifacts for landing, onboarding, analytics, support, and pilots
+4. validate first payer and first paid offer through interviews or pilots
+5. run staging walkthrough and collect objections before production discussion
 
 ## Parallel lanes
-- Lane A: backend CRUD and visit domain
-- Lane B: mobile UI and comparison/report
-- Lane C: QA and staging readiness
+- Lane A: product reliability and smoke coverage
+- Lane B: launch asset completion and onboarding clarity
+- Lane C: ICP, offer, and pilot validation
 
 ## Task packet summary
 - packet exists: yes
@@ -80,15 +81,15 @@
 - design or release risk: `gpt-5.4`
 
 ## Risks
-- attachment upload complexity can slow MVP
-- mobile UX can sprawl without a tight checklist contract
-- offline expectation may expand scope
+- browser-local autosave reduces session loss, but low-connectivity environments can still block API writes and attachment uploads
+- payer ambiguity can slow launch if report quality is not compelling enough for buyer agents or investor teams
+- launch assets can lag behind working code and create a false sense of readiness
 
 ## Verification
 - lint: `npm run web:lint`
 - tests: `npm run api:test`
 - build: `npm run web:build`
-- smoke: create project, add property, complete visit, view report
+- smoke: create project, add property, complete visit, refresh draft restore, retry failed attachment upload, view report
 
 ## Release notes draft
 - initial planning package for real-estate field visit MVP

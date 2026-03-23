@@ -3,13 +3,17 @@ owner: codex_local_manager
 assumptions:
   - A single authenticated user is enough for v1.
   - Candidate properties are entered manually.
+  - Visit capture is online-first in v1.
+  - Browser-local autosave restores an in-progress visit draft on the same device/browser.
+  - Draft recovery is best-effort and does not include offline mutation queueing or cross-device sync.
   - Image uploads can use S3-compatible storage.
-  - Full offline sync is not required in v1.
 non_goals:
   - Live brokerage integration
   - Mortgage workflow
   - Legal contract analysis
   - Multi-user realtime collaboration
+  - Partial offline submission or background sync
+  - Offline attachment upload
 acceptance_criteria:
   - id: AC-001
     description: A user can create a visit project and add multiple candidate properties.
@@ -32,7 +36,12 @@ acceptance_criteria:
       - ui_smoke
       - manual_check
   - id: AC-005
-    description: A summary report shows visit date, key findings, and recommendation notes.
+    description: A summary report shows visit date, key findings, recommendation notes, aggregate score, and red flags.
+    verification:
+      - ui_smoke
+      - manual_check
+  - id: AC-006
+    description: An in-progress visit draft is restored after browser refresh on the same device/browser until the visit is submitted or the draft is cleared.
     verification:
       - ui_smoke
       - manual_check

@@ -2,10 +2,10 @@
 
 ## Blockers
 
-- [ ] 질문: v1에서 draft-save는 단순 autosave로 충분한가, 아니면 약한 오프라인 지원까지 필요한가?
-  - 왜 중요한가: mobile field visit flow에서 네트워크 품질이 낮을 수 있다.
-  - 기본 가정: v1은 online-first + autosave로 간다.
-  - 미해결 시 영향: visit form UX와 storage 전략이 크게 달라진다.
+- 없음. `offline_support_decision`은 2026-03-23 기준으로 닫는다.
+  - 결정: v1은 `online-first + browser-local autosave/restore`만 지원한다.
+  - 범위 밖: partial offline queueing, offline attachment upload, cross-device draft recovery.
+  - 남는 위험: 저품질 네트워크에서는 draft 복구는 가능해도 서버 저장과 업로드는 막힐 수 있다.
 
 ## Non-blockers
 
@@ -17,14 +17,21 @@
   - 기본 가정: v1은 single-user만 지원한다.
   - 추후 확인 시점: v1 adoption 확인 이후
 
-## Design gaps
-
-- [ ] 항목: checklist 항목의 기본 taxonomy
+## Resolved decisions
+- [x] 질문: v1에서 autosave-only로 충분한가, 아니면 partial offline support가 필요한가?
+  - 결정: v1은 online-first로 유지하고, 같은 device/browser에서만 browser-local autosave draft restore를 제공한다.
+  - 이유: 현재 MVP 범위 안에서 draft loss를 줄이되, sync/storage/conflict/attachment semantics를 늘리지 않기 위해서다.
+  - 재검토 조건: staging 또는 첫 pilot field sessions에서 low-connectivity로 visit completion이 반복적으로 막히면 재검토한다.
+- [x] 항목: checklist taxonomy 최소 집합
+  - 결정: v1 required sections는 `property`, `building`, `neighborhood`이고 `redflags`는 optional narrative capture로 유지한다.
   - 관련 문서: PRD.md, ADR-001.md
-  - owner: planner / architect
 
 ## Release gaps
 
-- [ ] 항목: attachment upload size and failure UX
+- [ ] 항목: autosave restore를 staging smoke에서 실제 검증
+  - 위험도: medium
+  - 확인 필요 시점: 첫 staging walkthrough 전
+
+- [ ] 항목: attachment upload size limit and retry UX staging validation
   - 위험도: medium
   - 확인 필요 시점: staging smoke 정의 전

@@ -1,7 +1,7 @@
 {
   "run_id": "run-001-real-estate-imjang",
   "status": "execution_ready",
-  "current_phase": "auth_and_release_hardening",
+  "current_phase": "launch_os_execution",
   "completed": [
     "brief_received",
     "planned",
@@ -30,11 +30,11 @@
     "INF-001-draft",
     "staging_automation_draft",
     "compose_smoke_with_s3",
-    "verified_s3_storage"
+    "verified_s3_storage",
+    "offline_support_decision"
   ],
   "next_tasks": [
-    "staging_secret_population",
-    "offline_support_decision"
+    "staging_secret_population"
   ],
   "blocked": [],
   "notes": [
@@ -56,6 +56,7 @@
     "Staging deploy bundle and production approval workflow are prepared.",
     "Visit drafts now autosave to browser storage and restore on reload.",
     "Environment-specific deploy commands now have a validated contract for staging and production workflows.",
-    "Visit completion now keeps the saved visit and allows retrying only the attachment uploads that failed."
+    "Visit completion now keeps the saved visit and allows retrying only the attachment uploads that failed.",
+    "V1 offline boundary is fixed as online-first plus browser-local autosave and restore on the same device/browser."
   ]
 }

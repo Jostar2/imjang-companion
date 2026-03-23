@@ -113,12 +113,12 @@ Outputs:
 
 ## Minimum launch artifacts
 
-- landing page copy
-- offer page or pricing sheet
-- onboarding path
-- activation event definitions
-- support and rollback notes
-- paid pilot contact list
+- landing page copy: `docs/launch/LANDING_PAGE_COPY.md`
+- offer page or pricing sheet: `docs/PRICING.md`
+- onboarding path: `docs/launch/ONBOARDING_PATH.md`
+- activation event definitions: `docs/launch/ANALYTICS_EVENT_MAP.md`
+- support and rollback notes: `docs/launch/SUPPORT_RUNBOOK.md`
+- paid pilot contact list: `docs/launch/PAID_PILOT_CONTACTS.md`
 
 ## KPI review cadence
 

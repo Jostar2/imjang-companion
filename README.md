@@ -37,9 +37,9 @@ Its job is to prove one bounded product can move from brief through launch-readi
 ## Current status
 
 - run status: `execution_ready`
-- current phase: `auth_and_release_hardening`
-- completed slices: project/property CRUD, visit workflow, comparison/report payloads, binary attachment uploads, upload failure recovery UX, admin ops console, role-based authorization, staging deploy bundle, deploy command contracts
-- next tasks: `staging_secret_population`, `offline_support_decision`
+- current phase: `launch_os_execution`
+- completed slices: project/property CRUD, visit workflow, comparison/report payloads, binary attachment uploads, upload failure recovery UX, admin ops console, role-based authorization, staging deploy bundle, deploy command contracts, v1 offline boundary decision
+- next tasks: `staging_secret_population`
 
 ## Local commands
 
@@ -56,9 +56,10 @@ Its job is to prove one bounded product can move from brief through launch-readi
 
 ## Open items
 
-- decide whether local autosave is sufficient for v1 or whether partial offline support is required
+- validate whether staging or pilot evidence justifies expanding beyond browser-local autosave after v1
 - populate GitHub environment secrets for staging and production command execution
 - validate the first paying ICP through interviews or paid pilots
+- complete launch artifacts for landing copy, onboarding, analytics, support, and pilot outreach
 
 ## Launch OS integration
 

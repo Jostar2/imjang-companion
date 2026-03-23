@@ -1,9 +1,11 @@
 # Risk Register
 
-| Risk ID | Severity | Description | Mitigation | Owner |
-|---|---|---|---|---|
-| R-001 | high | attachment upload path introduces the most integration risk | stage upload flow early, limit size, add failure UX | architect / infra |
-| R-002 | medium | checklist scope can sprawl and slow implementation | freeze a minimal taxonomy for v1 | planner |
-| R-003 | medium | comparison scoring can become arbitrary or misleading | keep score logic simple and transparent in v1 | architect |
-| R-004 | medium | mobile session loss can hurt visit workflow | add autosave assumption and revisit offline after MVP | frontend |
-| R-005 | high | report generation may depend on too many unfinished fields | keep report as structured web view first, not PDF export | planner / frontend |
+| Risk ID | Severity | Trigger | Impact | Mitigation | Owner | Release gate |
+| --- | --- | --- | --- | --- | --- | --- |
+| `R-001` | high | Comparison or report reads owner-wide data instead of a single project or completed visit. | Users can compare unrelated properties or see the wrong "latest" report once they have multiple projects. | Freeze the architecture on project- and visit-scoped read models now, then require a two-project QA scenario before staging sign-off. | architect + backend_worker + frontend_worker | pre-staging |
+| `R-002` | high | Attachment binary write succeeds but DB persistence fails, or retries create duplicate records. | Orphaned files, confusing attachment counts, and unreliable visit evidence. | Keep upload behind a storage adapter, add size-limit and retry validation, and treat upload disablement as an approved rollback path. | infra_release + backend_worker | pre-staging |
+| `R-003` | medium | Frontend and backend drift on hard-coded checklist section keys. | Visit completion gates and scoring become inconsistent across layers. | Freeze the v1 taxonomy (`property`, `building`, `neighborhood`, optional `redflags`), document it in the ADR, and require tests for completion semantics whenever keys change. | architect + backend_worker + frontend_worker | pre-merge |
+| `R-004` | medium | Browser autosave restores text fields but not file binaries. | Users may believe photos are restored when only filenames were saved. | Keep explicit UI copy, include refresh-and-reattach regression coverage, and avoid any offline-recovery claims beyond same-browser draft restore. | frontend_worker + qa_worker | pre-staging |
+| `R-005` | high | A follow-on slice tries to add partner review, share links, or broader role behavior inside the current tasks. | The task crosses auth and permission boundaries and can create security or ownership regressions. | Hold the v1 boundary at single-user owner scope. Require a separate ADR and escalation for collaboration or public access. | architect | planning / pre-merge |
+| `R-006` | medium | Report output is treated like a finalized document before the read contract is stable. | Users receive a low-trust summary that is hard to reconcile with stored visit evidence. | Keep report delivery as a web projection first, bind it to completed visit data, and validate usefulness in staging or pilot feedback before export work. | planner + frontend_worker + launch_operator | pre-staging |
+| `R-007` | medium | Checklist changes are made by editing JSON field semantics without an explicit migration decision. | Historical visits become hard to compare and analytics become unreliable. | Treat taxonomy changes as architecture work, not incidental implementation. Open a new ADR before normalizing or versioning checklist schema. | architect + backend_worker | pre-merge |
