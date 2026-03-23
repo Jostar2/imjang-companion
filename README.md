@@ -37,9 +37,9 @@ Its job is to prove one bounded product can move from brief through launch-readi
 ## Current status
 
 - run status: `execution_ready`
-- current phase: `launch_os_execution`
+- current phase: `local_pilot_preparation`
 - completed slices: project/property CRUD, visit workflow, comparison/report payloads, binary attachment uploads, upload failure recovery UX, admin ops console, role-based authorization, staging deploy bundle, deploy command contracts, v1 offline boundary decision
-- next tasks: `staging_secret_population`
+- next tasks: `local_pilot_readiness`, `launch_artifact_rehearsal`, `first_payer_interviews`
 
 ## Local commands
 
@@ -57,7 +57,7 @@ Its job is to prove one bounded product can move from brief through launch-readi
 ## Open items
 
 - validate whether staging or pilot evidence justifies expanding beyond browser-local autosave after v1
-- populate GitHub environment secrets for staging and production command execution
+- defer GitHub environment secrets and remote staging until local walkthroughs and pilot demand justify a hosted environment
 - validate the first paying ICP through interviews or paid pilots
 - complete launch artifacts for landing copy, onboarding, analytics, support, and pilot outreach
 

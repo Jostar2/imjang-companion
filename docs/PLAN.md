@@ -9,9 +9,9 @@
 - Operating mode: `standalone-product-repo`
 
 ## Goal
-- 이번 실행의 목표: 현재 구현 상태를 기준으로 v1 범위를 고정하고, staging readiness와 첫 paid pilot 준비 문서를 launch-ready 수준으로 정리한다
-- 성공 기준: offline boundary, autosave behavior, release smoke, launch artifacts, and pilot assumptions가 현재 구현과 일치한다
-- 배포 대상: staging readiness only
+- 이번 실행의 목표: 현재 구현 상태를 기준으로 v1 범위를 고정하고, 로컬 데모/파일럿 운영 기준과 첫 paid pilot 준비 문서를 launch-ready 수준으로 정리한다
+- 성공 기준: offline boundary, autosave behavior, local walkthrough, launch artifacts, and pilot assumptions가 현재 구현과 일치한다
+- 배포 대상: local-first walkthrough and pilot prep
 
 ## Product + launch thesis
 - product thesis: 임장 현장의 관찰과 판단을 구조화해서 비교와 보고서로 복원 가능한 buyer-side due diligence workflow를 만든다
@@ -38,7 +38,7 @@
 ## Constraints
 - mobile-first frontend
 - local bootstrap first
-- staging required before any prod discussion
+- remote staging은 선택사항으로 미루고, 당장은 local walkthrough와 pilot feedback을 우선한다
 - Spark only with task packets
 - visit writes and attachment uploads remain online-first in v1
 - single-user owner scope remains the product boundary in v1
@@ -54,11 +54,11 @@
 - non-blocker: should report export remain web-only in v1?
 
 ## Task graph
-1. populate staging secrets
-2. refresh smoke coverage for autosave restore and attachment retry
+1. rehearse a local demo path for project -> property -> visit -> comparison -> report
+2. refresh local smoke coverage for autosave restore and attachment retry
 3. finalize launch artifacts for landing, onboarding, analytics, support, and pilots
-4. validate first payer and first paid offer through interviews or pilots
-5. run staging walkthrough and collect objections before production discussion
+4. validate first payer and first paid offer through interviews or local pilots
+5. defer staging setup until local walkthroughs produce real pilot demand
 
 ## Parallel lanes
 - Lane A: product reliability and smoke coverage
@@ -98,6 +98,6 @@
 - aligned product docs to the standalone repo, explicit v1 online-first boundary, and launch-readiness artifacts
 
 ## Rollback draft
-- trigger: staging smoke reveals regression in capture, autosave restore, upload retry, or report clarity
-- procedure: keep capture path as the protected lane, hide unstable read surfaces if necessary, and defer scope-expanding launch promises
+- trigger: local walkthrough reveals regression in capture, autosave restore, upload retry, or report clarity
+- procedure: keep capture path as the protected lane, hide unstable read surfaces if necessary, and defer scope-expanding launch promises or hosted deployment work
 - owner: reviewer + infra owner + launch operator

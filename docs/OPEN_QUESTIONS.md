@@ -31,13 +31,17 @@
   - 재검토 조건: staging 또는 첫 pilot field sessions에서 low-connectivity로 visit completion이 반복적으로 막히면 재검토한다.
 
 ## Release gaps
-- [ ] 항목: autosave restore를 staging smoke에서 실제 검증
+- [ ] 항목: autosave restore를 local walkthrough에서 실제 검증
   - 위험도: medium
-  - 확인 필요 시점: 첫 staging walkthrough 전
+  - 확인 필요 시점: 첫 local demo rehearsal 전
 
 - [ ] 항목: launch artifact 초안을 실제 파일럿용 내용으로 채우기
   - 필요한 산출물: landing page copy, onboarding path, analytics event map, support runbook, paid pilot contact list
   - 확인 필요 시점: paid pilot outreach 시작 전
+
+- [ ] 항목: hosted staging은 파일럿 수요가 확인된 뒤로 미룰지, 아니면 그 전에 꼭 필요한지
+  - 기본 가정: 지금은 local-first로 검증하고, 반복 데모나 외부 접근이 필요해질 때 staging을 다시 연다.
+  - 확인 필요 시점: 첫 3건의 인터뷰 또는 첫 live pilot 일정이 잡힐 때
 
 - [x] 항목: attachment upload failure UX
   - 해결 시점: 2026-03-22

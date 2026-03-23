@@ -9,9 +9,9 @@
 - Operating mode: `standalone-product-repo`
 
 ## Goal
-- 이번 실행의 목표: 현재 구현 상태를 기준으로 v1 범위를 고정하고, staging readiness와 첫 paid pilot 준비 문서를 launch-ready 수준으로 정리한다
-- 성공 기준: offline boundary, autosave behavior, release smoke, launch artifacts, and pilot assumptions가 현재 구현과 일치한다
-- 배포 대상: staging readiness only
+- 이번 실행의 목표: 현재 구현 상태를 기준으로 v1 범위를 고정하고, 로컬 데모/파일럿 운영 기준과 첫 paid pilot 준비 문서를 launch-ready 수준으로 정리한다
+- 성공 기준: offline boundary, autosave behavior, local walkthrough, launch artifacts, and pilot assumptions가 현재 구현과 일치한다
+- 배포 대상: local-first walkthrough and pilot prep
 
 ## Scope
 ### In
@@ -34,7 +34,7 @@
 
 ## Constraints
 - mobile-first UX
-- staging required
+- remote staging은 선택사항으로 미루고, 당장은 local walkthrough와 pilot feedback을 우선한다
 - prod manual approval
 - no heavy external listing integrations in v1
 - visit writes와 attachment upload는 v1에서 online-first로 유지
@@ -51,11 +51,11 @@
 - non-blocker: partner sharing as view-only in v1 or later?
 
 ## Task graph
-1. populate staging secrets
-2. refresh smoke coverage for autosave restore and attachment retry
+1. rehearse a local demo path for project -> property -> visit -> comparison -> report
+2. refresh local smoke coverage for autosave restore and attachment retry
 3. finalize launch artifacts for landing, onboarding, analytics, support, and pilots
-4. validate first payer and first paid offer through interviews or pilots
-5. run staging walkthrough and collect objections before production discussion
+4. validate first payer and first paid offer through interviews or local pilots
+5. defer staging setup until local walkthroughs produce real pilot demand
 
 ## Parallel lanes
 - Lane A: product reliability and smoke coverage
@@ -95,6 +95,6 @@
 - initial planning package for real-estate field visit MVP
 
 ## Rollback draft
-- trigger: staging smoke failure or upload path failure
-- procedure: block release candidate and revert feature branch
+- trigger: local walkthrough failure or upload path failure
+- procedure: block the pilot-facing demo path, keep the capture flow protected, and defer hosted deployment work
 - owner: reviewer + infra owner

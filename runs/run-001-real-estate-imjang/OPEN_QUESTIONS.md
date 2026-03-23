@@ -28,10 +28,14 @@
 
 ## Release gaps
 
-- [ ] 항목: autosave restore를 staging smoke에서 실제 검증
+- [ ] 항목: autosave restore를 local walkthrough에서 실제 검증
   - 위험도: medium
-  - 확인 필요 시점: 첫 staging walkthrough 전
+  - 확인 필요 시점: 첫 local demo rehearsal 전
 
-- [ ] 항목: attachment upload size limit and retry UX staging validation
+- [ ] 항목: attachment upload size limit and retry UX를 local walkthrough에서 검증
   - 위험도: medium
-  - 확인 필요 시점: staging smoke 정의 전
+  - 확인 필요 시점: 첫 local demo rehearsal 전
+
+- [ ] 항목: hosted staging은 파일럿 수요가 확인된 뒤로 미룰지, 아니면 그 전에 꼭 필요한지
+  - 기본 가정: 지금은 local-first로 검증하고, 반복 데모나 외부 접근이 필요해질 때 staging을 다시 연다.
+  - 확인 필요 시점: 첫 3건의 인터뷰 또는 첫 live pilot 일정이 잡힐 때

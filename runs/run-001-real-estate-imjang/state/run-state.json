@@ -1,7 +1,7 @@
 {
   "run_id": "run-001-real-estate-imjang",
   "status": "execution_ready",
-  "current_phase": "launch_os_execution",
+  "current_phase": "local_pilot_preparation",
   "completed": [
     "brief_received",
     "planned",
@@ -34,7 +34,9 @@
     "offline_support_decision"
   ],
   "next_tasks": [
-    "staging_secret_population"
+    "local_pilot_readiness",
+    "launch_artifact_rehearsal",
+    "first_payer_interviews"
   ],
   "blocked": [],
   "notes": [
@@ -53,10 +55,11 @@
     "Buyer/admin role-based authorization now applies consistently across owner-scoped resources.",
     "Alembic initial migration is in place and local migration command succeeds.",
     "Comparison and report now use dedicated backend payload contracts.",
-    "Staging deploy bundle and production approval workflow are prepared.",
+    "Staging deploy bundle and production approval workflow are prepared, but remote staging is deferred until local walkthrough demand justifies it.",
     "Visit drafts now autosave to browser storage and restore on reload.",
     "Environment-specific deploy commands now have a validated contract for staging and production workflows.",
     "Visit completion now keeps the saved visit and allows retrying only the attachment uploads that failed.",
-    "V1 offline boundary is fixed as online-first plus browser-local autosave and restore on the same device/browser."
+    "V1 offline boundary is fixed as online-first plus browser-local autosave and restore on the same device/browser.",
+    "Current operating mode is local-first: validate the product through local walkthroughs and pilot interviews before provisioning hosted staging."
   ]
 }
