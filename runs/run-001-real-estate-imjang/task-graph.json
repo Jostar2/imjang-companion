@@ -130,8 +130,8 @@
       "owner_agent": "qa_worker",
       "depends_on": ["BE-002", "FE-002", "FE-003"],
       "input_artifacts": ["acceptance.yaml", "task-graph.json"],
-      "output_artifacts": ["projects/imjang-companion/runs/run-001-real-estate-imjang/qa/regression-matrix.md", "projects/imjang-companion/runs/run-001-real-estate-imjang/qa/smoke-plan.md"],
-      "write_scope": ["projects/imjang-companion/runs/run-001-real-estate-imjang/qa/**", "services/api/tests/**", "apps/web/src/**"],
+      "output_artifacts": ["runs/run-001-real-estate-imjang/qa/regression-matrix.md", "runs/run-001-real-estate-imjang/qa/smoke-plan.md"],
+      "write_scope": ["runs/run-001-real-estate-imjang/qa/**", "services/api/tests/**", "apps/web/src/**"],
       "verification": ["review_regression_matrix"],
       "risk_level": "medium",
       "approval_required": false
@@ -143,8 +143,8 @@
       "owner_agent": "infra_release",
       "depends_on": ["BE-002", "QA-001"],
       "input_artifacts": ["release-strategy.md", "risk-register.md"],
-      "output_artifacts": ["infra/README.md", "projects/imjang-companion/runs/run-001-real-estate-imjang/release-notes.md", "projects/imjang-companion/docs/RELEASE_CHECKLIST.md"],
-      "write_scope": ["infra/**", "projects/imjang-companion/runs/run-001-real-estate-imjang/**", "projects/imjang-companion/docs/RELEASE_CHECKLIST.md", "docker-compose.yml"],
+      "output_artifacts": ["infra/README.md", "runs/run-001-real-estate-imjang/release-notes.md", "docs/RELEASE_CHECKLIST.md"],
+      "write_scope": ["infra/**", "runs/run-001-real-estate-imjang/**", "docs/RELEASE_CHECKLIST.md", "docker-compose.yml"],
       "verification": ["staging_checklist_review"],
       "risk_level": "high",
       "approval_required": false

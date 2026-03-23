@@ -44,12 +44,18 @@ export type ComparisonEntry = {
   address: string;
   listing_price_label: string;
   total_score: number | null;
+  visit_id: string | null;
+  visit_date: string | null;
+  visit_status: string | null;
   strengths: string[];
   red_flags: string[];
 };
 
 export type ComparisonPayload = {
   project_count: number;
+  project_id: string;
+  project_name: string;
+  property_count: number;
   entries: ComparisonEntry[];
 };
 
@@ -59,6 +65,10 @@ export type ReportSection = {
 };
 
 export type VisitReportPayload = {
+  project_id: string;
+  project_name: string;
+  visit_id: string;
+  visit_date: string;
   property_id: string;
   address: string;
   total_score: number | null;
@@ -366,12 +376,21 @@ export function listVisits(propertyId?: string): Promise<Visit[]> {
   return request<Visit[]>(`/visits${query}`);
 }
 
-export function fetchComparison(): Promise<ComparisonPayload> {
-  return request<ComparisonPayload>("/reports/comparison");
+export function fetchComparison(projectId?: string): Promise<ComparisonPayload> {
+  const query = projectId ? `?project_id=${encodeURIComponent(projectId)}` : "";
+  return request<ComparisonPayload>(`/reports/comparison${query}`);
 }
 
-export function fetchLatestReport(): Promise<VisitReportPayload> {
-  return request<VisitReportPayload>("/reports/latest");
+export function fetchLatestReport(options?: { projectId?: string; visitId?: string }): Promise<VisitReportPayload> {
+  const params = new URLSearchParams();
+  if (options?.projectId) {
+    params.set("project_id", options.projectId);
+  }
+  if (options?.visitId) {
+    params.set("visit_id", options.visitId);
+  }
+  const query = params.size ? `?${params.toString()}` : "";
+  return request<VisitReportPayload>(`/reports/latest${query}`);
 }
 
 export function fetchReleaseReadiness(): Promise<ReleaseReadiness> {

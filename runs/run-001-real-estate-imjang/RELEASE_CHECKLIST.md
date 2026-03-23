@@ -8,8 +8,10 @@
 ## Pre-staging
 - [ ] smoke 대상 flow 확정
 - [ ] attachment upload failure path 정의
+- [ ] autosave restore와 attachment retry를 smoke 또는 수동 회귀에 포함
 - [ ] rollback draft 작성
 - [ ] release notes 초안 작성
+- [ ] landing/onboarding/analytics/support/pilot artifact가 존재하고 실제 문구/체크리스트/아웃바운드 스크립트까지 채워져 있다.
 
 ## Post-staging
 - [ ] create project 흐름 통과

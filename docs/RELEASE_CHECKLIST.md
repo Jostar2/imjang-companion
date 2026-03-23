@@ -15,7 +15,7 @@
 - [ ] staging deploy command contract 검증
 - [ ] attachment upload path 확인
 - [ ] rollback draft 작성
-- [ ] landing/onboarding/analytics/support/pilot artifact 작성
+- [ ] landing/onboarding/analytics/support/pilot artifact가 존재하고 실제 문구/체크리스트/아웃바운드 스크립트까지 채워져 있다.
 
 ## Post-staging
 - [ ] staging deploy 성공
