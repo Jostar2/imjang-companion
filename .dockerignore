@@ -1,0 +1,10 @@
+.git
+.gitignore
+node_modules
+apps/web/node_modules
+apps/web/.next
+__pycache__
+.pytest_cache
+.venv
+artifacts/uploads
+*.pyc

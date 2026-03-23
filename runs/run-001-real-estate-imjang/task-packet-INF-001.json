@@ -1,0 +1,47 @@
+{
+  "task_id": "INF-001",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "infra_release",
+  "source_model": "gpt-5.4",
+  "reasoning_effort": "high",
+  "goal": "Prepare attachment storage path and staging release checklist",
+  "acceptance_subset": [
+    "task-graph:INF-001"
+  ],
+  "read_files": [
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/release-strategy.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/risk-register.md"
+  ],
+  "write_scope": [
+    "infra/**",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/**",
+    "projects/imjang-companion/docs/RELEASE_CHECKLIST.md",
+    "docker-compose.yml"
+  ],
+  "interfaces": [
+    "Deliver infra/README.md",
+    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/release-notes.md",
+    "Deliver projects/imjang-companion/docs/RELEASE_CHECKLIST.md"
+  ],
+  "constraints": [
+    "Keep work bounded to task `INF-001`.",
+    "Respect phase `delivery` and owner `infra_release`.",
+    "Escalate if write scope expands unexpectedly."
+  ],
+  "verification": [
+    "staging_checklist_review"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.4",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "Auto-generated packet for INF-001 from the active task graph.",
+    "residual_ambiguity": [
+      "Refresh this packet if architecture, scope, or release policy changes."
+    ]
+  }
+}

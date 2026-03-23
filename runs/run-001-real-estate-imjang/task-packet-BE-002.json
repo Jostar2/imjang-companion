@@ -1,0 +1,60 @@
+{
+  "task_id": "BE-002",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "backend_worker",
+  "source_model": "gpt-5.3-codex-spark",
+  "reasoning_effort": "medium",
+  "goal": "Implement visit session, checklist completion rules, score aggregation, and attachment metadata handling.",
+  "acceptance_subset": [
+    "AC-002",
+    "AC-003"
+  ],
+  "read_files": [
+    "projects/imjang-companion/docs/ADR/ADR-001.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "services/api/app/main.py",
+    "services/api/app/core/store.py",
+    "services/api/app/api/routes/projects.py",
+    "services/api/app/api/routes/properties.py",
+    "services/api/app/schemas/project.py",
+    "services/api/app/schemas/property.py"
+  ],
+  "write_scope": [
+    "services/api/app/main.py",
+    "services/api/app/core/store.py",
+    "services/api/app/models/visit.py",
+    "services/api/app/models/attachment.py",
+    "services/api/app/schemas/visit.py",
+    "services/api/app/schemas/attachment.py",
+    "services/api/app/api/routes/visits.py",
+    "services/api/tests/test_visits.py"
+  ],
+  "interfaces": [
+    "CreateVisit(property_id, visit_date) -> Visit",
+    "UpdateVisit(sections, red_flags, recommendation_notes, attachments, mark_complete) -> Visit",
+    "ListVisits(property_id) -> Visit[]"
+  ],
+  "constraints": [
+    "Do not implement binary file upload in this slice.",
+    "Attachment handling is metadata only for now.",
+    "Required checklist sections must block completion until filled."
+  ],
+  "verification": [
+    "npm run api:test",
+    "npm run api:check"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.3-codex",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "Keep this slice bounded to visit domain rules and metadata. Do not widen into storage integration yet.",
+    "residual_ambiguity": [
+      "Checklist taxonomy can still evolve after MVP feedback."
+    ]
+  }
+}

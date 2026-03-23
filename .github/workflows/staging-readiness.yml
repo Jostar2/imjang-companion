@@ -1,0 +1,30 @@
+name: Staging Readiness
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_base_url:
+        description: "Base API URL for smoke checks"
+        required: true
+        type: string
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend deps
+        run: pip install -r services/api/requirements.txt
+
+      - name: Release readiness check
+        run: python scripts/release_readiness.py
+
+      - name: API smoke check
+        run: python scripts/smoke_check.py --base-url "${{ inputs.api_base_url }}" --include-attachment

@@ -1,0 +1,47 @@
+{
+  "task_id": "ARC-001",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "architect",
+  "source_model": "gpt-5.4",
+  "reasoning_effort": "high",
+  "goal": "Finalize property, visit, checklist, and report boundaries",
+  "acceptance_subset": [
+    "task-graph:ARC-001"
+  ],
+  "read_files": [
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/brief.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml"
+  ],
+  "write_scope": [
+    "ADR-001.md",
+    "risk-register.md",
+    "release-strategy.md"
+  ],
+  "interfaces": [
+    "Deliver ADR-001.md",
+    "Deliver risk-register.md",
+    "Deliver release-strategy.md"
+  ],
+  "constraints": [
+    "Keep work bounded to task `ARC-001`.",
+    "Respect phase `architecture` and owner `architect`.",
+    "Escalate if write scope expands unexpectedly."
+  ],
+  "verification": [
+    "document_review"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.4",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "Auto-generated packet for ARC-001 from the active task graph.",
+    "residual_ambiguity": [
+      "Refresh this packet if architecture, scope, or release policy changes."
+    ]
+  }
+}

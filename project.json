@@ -1,0 +1,43 @@
+{
+  "slug": "imjang-companion",
+  "name": "Imjang Companion",
+  "role": "pilot-project",
+  "status": "execution_ready",
+  "current_phase": "auth_and_release_hardening",
+  "primary_objective": "Use Imjang Companion as the first vertical product run while Launch OS becomes the primary system to complete.",
+  "active_run": "run-001-real-estate-imjang",
+  "paths": {
+    "project_root": ".",
+    "readme": "README.md",
+    "docs_root": "docs",
+    "briefs_root": "briefs",
+    "runs_root": "runs",
+    "active_run_root": "runs/run-001-real-estate-imjang",
+    "web": "apps/web",
+    "api": "services/api",
+    "infra": "infra"
+  },
+  "documents": {
+    "plan": "docs/PLAN.md",
+    "open_questions": "docs/OPEN_QUESTIONS.md",
+    "business_model": "docs/BUSINESS_MODEL.md",
+    "icp": "docs/ICP.md",
+    "pricing": "docs/PRICING.md",
+    "gtm": "docs/GTM.md",
+    "launch_runbook": "docs/LAUNCH_RUNBOOK.md",
+    "release_checklist": "docs/RELEASE_CHECKLIST.md",
+    "prd": "docs/PRD.md",
+    "adr": "docs/ADR/ADR-001.md",
+    "brief": "briefs/real-estate-imjang-brief.md"
+  },
+  "runtime_artifacts": {
+    "database": "artifacts/imjang.db",
+    "uploads": "artifacts/uploads"
+  },
+  "human_gates": [
+    "staging_secret_population",
+    "pricing_go_live",
+    "legal_or_compliance_claims",
+    "production_approval"
+  ]
+}

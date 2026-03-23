@@ -1,0 +1,41 @@
+feature_name: imjang_companion_mvp
+owner: codex_local_manager
+assumptions:
+  - A single authenticated user is enough for v1.
+  - Candidate properties are entered manually.
+  - Image uploads can use S3-compatible storage.
+  - Full offline sync is not required in v1.
+non_goals:
+  - Live brokerage integration
+  - Mortgage workflow
+  - Legal contract analysis
+  - Multi-user realtime collaboration
+acceptance_criteria:
+  - id: AC-001
+    description: A user can create a visit project and add multiple candidate properties.
+    verification:
+      - api_test
+      - ui_smoke
+  - id: AC-002
+    description: A user can complete a visit checklist with required sections before marking the visit complete.
+    verification:
+      - unit_test
+      - ui_smoke
+  - id: AC-003
+    description: Notes, scores, and photos are attached to the correct property visit.
+    verification:
+      - integration_test
+      - manual_check
+  - id: AC-004
+    description: A comparison view shows aggregate score and red flags across at least two properties.
+    verification:
+      - ui_smoke
+      - manual_check
+  - id: AC-005
+    description: A summary report shows visit date, key findings, and recommendation notes.
+    verification:
+      - ui_smoke
+      - manual_check
+rollout:
+  staging_required: true
+  production_requires_human_approval: true

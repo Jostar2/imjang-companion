@@ -1,0 +1,17 @@
+node_modules/
+.next/
+*.tsbuildinfo
+dist/
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+coverage/
+.DS_Store
+artifacts/*.db
+artifacts/runs/*/tmp/
+artifacts/launch-os/
+artifacts/uploads/
+infra/staging/.env.staging
+infra/staging/deploy-manifest.json
+runs/*/tmp/

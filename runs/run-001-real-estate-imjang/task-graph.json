@@ -1,0 +1,153 @@
+{
+  "run_id": "run-001-real-estate-imjang",
+  "tasks": [
+    {
+      "task_id": "ARC-001",
+      "title": "Finalize property, visit, checklist, and report boundaries",
+      "phase": "architecture",
+      "owner_agent": "architect",
+      "depends_on": [],
+      "input_artifacts": ["brief.md", "PRD.md", "acceptance.yaml"],
+      "output_artifacts": ["ADR-001.md", "risk-register.md", "release-strategy.md"],
+      "write_scope": ["ADR-001.md", "risk-register.md", "release-strategy.md"],
+      "verification": ["document_review"],
+      "risk_level": "high",
+      "approval_required": false
+    },
+    {
+      "task_id": "BE-001",
+      "title": "Implement project and property CRUD API",
+      "phase": "implementation",
+      "owner_agent": "backend_worker",
+      "depends_on": ["ARC-001"],
+      "input_artifacts": ["ADR-001.md", "acceptance.yaml"],
+      "output_artifacts": [
+        "services/api/app/api/routes/projects.py",
+        "services/api/app/api/routes/properties.py",
+        "services/api/app/schemas/project.py",
+        "services/api/app/schemas/property.py",
+        "services/api/tests/test_placeholders.py"
+      ],
+      "write_scope": [
+        "services/api/app/api/routes/projects.py",
+        "services/api/app/api/routes/properties.py",
+        "services/api/app/schemas/project.py",
+        "services/api/app/schemas/property.py",
+        "services/api/tests/test_placeholders.py"
+      ],
+      "verification": ["npm run api:test", "npm run api:check"],
+      "risk_level": "medium",
+      "approval_required": false
+    },
+    {
+      "task_id": "BE-002",
+      "title": "Implement visit checklist, notes, scores, and attachments API",
+      "phase": "implementation",
+      "owner_agent": "backend_worker",
+      "depends_on": ["ARC-001", "BE-001"],
+      "input_artifacts": ["ADR-001.md", "acceptance.yaml"],
+      "output_artifacts": [
+        "services/api/app/api/routes/visits.py",
+        "services/api/app/schemas/visit.py",
+        "services/api/app/schemas/attachment.py",
+        "services/api/tests/test_visits.py"
+      ],
+      "write_scope": [
+        "services/api/app/api/routes/visits.py",
+        "services/api/app/schemas/visit.py",
+        "services/api/app/schemas/attachment.py",
+        "services/api/tests/test_visits.py"
+      ],
+      "verification": ["npm run api:test", "npm run api:check"],
+      "risk_level": "high",
+      "approval_required": false
+    },
+    {
+      "task_id": "FE-001",
+      "title": "Implement mobile project and property list screens",
+      "phase": "implementation",
+      "owner_agent": "frontend_worker",
+      "depends_on": ["ARC-001"],
+      "input_artifacts": ["ADR-001.md", "acceptance.yaml"],
+      "output_artifacts": [
+        "apps/web/src/app/projects/page.tsx",
+        "apps/web/src/app/properties/page.tsx",
+        "apps/web/src/components/projects/project-shell.tsx"
+      ],
+      "write_scope": [
+        "apps/web/src/app/projects/page.tsx",
+        "apps/web/src/app/properties/page.tsx",
+        "apps/web/src/components/projects/project-shell.tsx"
+      ],
+      "verification": ["npm run web:lint", "npm run web:build"],
+      "risk_level": "medium",
+      "approval_required": false
+    },
+    {
+      "task_id": "FE-002",
+      "title": "Implement visit checklist and scoring flow",
+      "phase": "implementation",
+      "owner_agent": "frontend_worker",
+      "depends_on": ["BE-002", "FE-001"],
+      "input_artifacts": ["ADR-001.md", "acceptance.yaml"],
+      "output_artifacts": [
+        "apps/web/src/app/visits/page.tsx",
+        "apps/web/src/components/visits/**"
+      ],
+      "write_scope": [
+        "apps/web/src/app/visits/**",
+        "apps/web/src/components/visits/**"
+      ],
+      "verification": ["npm run web:lint", "npm run web:build"],
+      "risk_level": "high",
+      "approval_required": false
+    },
+    {
+      "task_id": "FE-003",
+      "title": "Implement comparison and summary report view",
+      "phase": "implementation",
+      "owner_agent": "frontend_worker",
+      "depends_on": ["BE-002", "FE-002"],
+      "input_artifacts": ["ADR-001.md", "acceptance.yaml"],
+      "output_artifacts": [
+        "apps/web/src/app/comparison/page.tsx",
+        "apps/web/src/app/report/page.tsx",
+        "apps/web/src/components/report/**"
+      ],
+      "write_scope": [
+        "apps/web/src/app/comparison/**",
+        "apps/web/src/app/report/**",
+        "apps/web/src/components/report/**"
+      ],
+      "verification": ["npm run web:lint", "npm run web:build"],
+      "risk_level": "medium",
+      "approval_required": false
+    },
+    {
+      "task_id": "QA-001",
+      "title": "Create regression and smoke plan for core visit flow",
+      "phase": "quality",
+      "owner_agent": "qa_worker",
+      "depends_on": ["BE-002", "FE-002", "FE-003"],
+      "input_artifacts": ["acceptance.yaml", "task-graph.json"],
+      "output_artifacts": ["projects/imjang-companion/runs/run-001-real-estate-imjang/qa/regression-matrix.md", "projects/imjang-companion/runs/run-001-real-estate-imjang/qa/smoke-plan.md"],
+      "write_scope": ["projects/imjang-companion/runs/run-001-real-estate-imjang/qa/**", "services/api/tests/**", "apps/web/src/**"],
+      "verification": ["review_regression_matrix"],
+      "risk_level": "medium",
+      "approval_required": false
+    },
+    {
+      "task_id": "INF-001",
+      "title": "Prepare attachment storage path and staging release checklist",
+      "phase": "delivery",
+      "owner_agent": "infra_release",
+      "depends_on": ["BE-002", "QA-001"],
+      "input_artifacts": ["release-strategy.md", "risk-register.md"],
+      "output_artifacts": ["infra/README.md", "projects/imjang-companion/runs/run-001-real-estate-imjang/release-notes.md", "projects/imjang-companion/docs/RELEASE_CHECKLIST.md"],
+      "write_scope": ["infra/**", "projects/imjang-companion/runs/run-001-real-estate-imjang/**", "projects/imjang-companion/docs/RELEASE_CHECKLIST.md", "docker-compose.yml"],
+      "verification": ["staging_checklist_review"],
+      "risk_level": "high",
+      "approval_required": false
+    }
+  ]
+}

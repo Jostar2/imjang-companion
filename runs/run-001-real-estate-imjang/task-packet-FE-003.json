@@ -1,0 +1,51 @@
+{
+  "task_id": "FE-003",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "frontend_worker",
+  "source_model": "gpt-5.3-codex-spark",
+  "reasoning_effort": "medium",
+  "goal": "Implement comparison and report shells that summarize scored visits and highlight red flags.",
+  "acceptance_subset": [
+    "AC-004",
+    "AC-005"
+  ],
+  "read_files": [
+    "projects/imjang-companion/docs/ADR/ADR-001.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "apps/web/src/app/comparison/page.tsx",
+    "apps/web/src/app/report/page.tsx",
+    "apps/web/src/app/globals.css"
+  ],
+  "write_scope": [
+    "apps/web/src/app/comparison/page.tsx",
+    "apps/web/src/app/report/page.tsx",
+    "apps/web/src/components/report/**",
+    "apps/web/src/app/globals.css"
+  ],
+  "interfaces": [
+    "Comparison cards with score and red flags",
+    "Visit summary report view"
+  ],
+  "constraints": [
+    "Keep this slice presentation-only for now.",
+    "Use sample visit data until backend report payloads are ready."
+  ],
+  "verification": [
+    "npm run web:lint",
+    "npm run web:build"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.3-codex",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "This slice should make comparison and report tangible without widening backend scope.",
+    "residual_ambiguity": [
+      "Final score weighting and narrative formatting can change after product feedback."
+    ]
+  }
+}

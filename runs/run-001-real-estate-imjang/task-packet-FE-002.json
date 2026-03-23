@@ -1,0 +1,53 @@
+{
+  "task_id": "FE-002",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "frontend_worker",
+  "source_model": "gpt-5.3-codex-spark",
+  "reasoning_effort": "medium",
+  "goal": "Implement the mobile-first visit checklist flow with required section completion, score summary, red flags, and recommendation notes.",
+  "acceptance_subset": [
+    "AC-002",
+    "AC-003"
+  ],
+  "read_files": [
+    "projects/imjang-companion/docs/ADR/ADR-001.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "apps/web/src/app/visits/page.tsx",
+    "apps/web/src/components/projects/project-shell.tsx",
+    "apps/web/src/app/globals.css"
+  ],
+  "write_scope": [
+    "apps/web/src/app/visits/page.tsx",
+    "apps/web/src/components/visits/**",
+    "apps/web/src/app/globals.css"
+  ],
+  "interfaces": [
+    "Checklist section cards",
+    "Section score entry",
+    "Completion gate before visit close",
+    "Red flag and recommendation note fields"
+  ],
+  "constraints": [
+    "Use placeholder data contracts if backend is not yet wired.",
+    "Mobile-first layout is required.",
+    "Do not implement comparison or report UI in this slice."
+  ],
+  "verification": [
+    "npm run web:lint",
+    "npm run web:build"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.3-codex",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "This slice should prove that the checklist can enforce required completion before a visit is closed.",
+    "residual_ambiguity": [
+      "Score weighting can remain flat for MVP."
+    ]
+  }
+}

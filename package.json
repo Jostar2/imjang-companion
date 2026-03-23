@@ -1,0 +1,23 @@
+{
+  "name": "imjang-companion",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "lint": "npm run web:lint && npm run api:check",
+    "test": "npm run api:test",
+    "build": "npm run web:build",
+    "release:check": "python -m scripts.release_readiness",
+    "smoke:api": "python scripts/smoke_check.py --base-url http://127.0.0.1:8000 --include-attachment",
+    "db:migrate": "alembic upgrade head",
+    "api:dev": "alembic upgrade head && uvicorn services.api.app.main:app --reload",
+    "web:dev": "npm --prefix apps/web run dev",
+    "web:lint": "npm --prefix apps/web run lint",
+    "web:build": "npm --prefix apps/web run build",
+    "api:test": "python -m pytest services/api/tests -q",
+    "api:check": "python -m compileall services/api/app services/api/tests",
+    "staging:preflight": "python scripts/staging_preflight.py",
+    "staging:commands:check": "python scripts/check_deploy_commands.py --environment staging",
+    "production:commands:check": "python scripts/check_deploy_commands.py --environment production",
+    "release:governance": "python -m scripts.release_governance_check"
+  }
+}

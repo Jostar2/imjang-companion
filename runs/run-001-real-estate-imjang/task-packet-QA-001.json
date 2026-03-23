@@ -1,0 +1,45 @@
+{
+  "task_id": "QA-001",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "qa_worker",
+  "source_model": "gpt-5.3-codex",
+  "reasoning_effort": "medium",
+  "goal": "Create regression and smoke plan for core visit flow",
+  "acceptance_subset": [
+    "task-graph:QA-001"
+  ],
+  "read_files": [
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/task-graph.json"
+  ],
+  "write_scope": [
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/qa/**",
+    "services/api/tests/**",
+    "apps/web/src/**"
+  ],
+  "interfaces": [
+    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/qa/regression-matrix.md",
+    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/qa/smoke-plan.md"
+  ],
+  "constraints": [
+    "Keep work bounded to task `QA-001`.",
+    "Respect phase `quality` and owner `qa_worker`.",
+    "Escalate if write scope expands unexpectedly."
+  ],
+  "verification": [
+    "review_regression_matrix"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.4",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 2
+  },
+  "notes": {
+    "manager_summary": "Auto-generated packet for QA-001 from the active task graph.",
+    "residual_ambiguity": [
+      "Refresh this packet if architecture, scope, or release policy changes."
+    ]
+  }
+}

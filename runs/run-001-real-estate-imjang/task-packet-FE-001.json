@@ -1,0 +1,54 @@
+{
+  "task_id": "FE-001",
+  "project_slug": "imjang-companion",
+  "project_root": "projects/imjang-companion",
+  "run_id": "run-001-real-estate-imjang",
+  "owner_agent": "frontend_worker",
+  "source_model": "gpt-5.3-codex-spark",
+  "reasoning_effort": "medium",
+  "goal": "Implement mobile-first project and property list screens for the Imjang Companion MVP.",
+  "acceptance_subset": [
+    "AC-001"
+  ],
+  "read_files": [
+    "projects/imjang-companion/docs/ADR/ADR-001.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
+    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "apps/web/src/app/projects/page.tsx",
+    "apps/web/src/app/properties/page.tsx",
+    "apps/web/src/components/projects/project-shell.tsx",
+    "apps/web/src/app/globals.css"
+  ],
+  "write_scope": [
+    "apps/web/src/app/projects/page.tsx",
+    "apps/web/src/app/properties/page.tsx",
+    "apps/web/src/components/projects/project-shell.tsx",
+    "apps/web/src/app/globals.css"
+  ],
+  "interfaces": [
+    "Project list view",
+    "Property list view by project",
+    "Manual property entry form"
+  ],
+  "constraints": [
+    "Mobile-first layout is required.",
+    "Do not implement comparison or report UI in this task.",
+    "Do not assume offline mode in v1.",
+    "Use placeholder or mocked data contracts until BE-001 is wired."
+  ],
+  "verification": [
+    "npm run web:lint",
+    "npm run web:build"
+  ],
+  "escalation_policy": {
+    "on_context_overflow": "upgrade_to_gpt-5.3-codex",
+    "on_sensitive_change": "upgrade_to_gpt-5.4",
+    "max_retries": 1
+  },
+  "notes": {
+    "manager_summary": "This slice is allowed to start in parallel with BE-001 as a shell-first UI task.",
+    "residual_ambiguity": [
+      "Data fetching strategy should stay minimal until backend contracts settle."
+    ]
+  }
+}

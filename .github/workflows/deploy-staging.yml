@@ -1,0 +1,141 @@
+name: Deploy Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Container image tag to deploy"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      api_image: ${{ steps.meta.outputs.api_image }}
+      web_image: ${{ steps.meta.outputs.web_image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve image names
+        id: meta
+        run: |
+          $repo = "${{ github.repository }}".ToLower()
+          "api_image=ghcr.io/$repo/imjang-api:${{ inputs.image_tag }}" >> $env:GITHUB_OUTPUT
+          "web_image=ghcr.io/$repo/imjang-web:${{ inputs.image_tag }}" >> $env:GITHUB_OUTPUT
+        shell: pwsh
+
+      - name: Build and push API image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: services/api/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.api_image }}
+
+      - name: Build and push Web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/web/Dockerfile
+          build-args: |
+            NEXT_PUBLIC_API_BASE_URL=${{ secrets.STAGING_PUBLIC_API_BASE_URL }}
+          push: true
+          tags: ${{ steps.meta.outputs.web_image }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render staging bundle
+        env:
+          API_IMAGE: ${{ needs.build-and-push.outputs.api_image }}
+          WEB_IMAGE: ${{ needs.build-and-push.outputs.web_image }}
+          STAGING_DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+          STAGING_POSTGRES_DB: ${{ secrets.STAGING_POSTGRES_DB }}
+          STAGING_POSTGRES_USER: ${{ secrets.STAGING_POSTGRES_USER }}
+          STAGING_POSTGRES_PASSWORD: ${{ secrets.STAGING_POSTGRES_PASSWORD }}
+          STAGING_S3_ENDPOINT: ${{ secrets.STAGING_S3_ENDPOINT }}
+          STAGING_S3_BUCKET: ${{ secrets.STAGING_S3_BUCKET }}
+          STAGING_S3_ACCESS_KEY: ${{ secrets.STAGING_S3_ACCESS_KEY }}
+          STAGING_S3_SECRET_KEY: ${{ secrets.STAGING_S3_SECRET_KEY }}
+          STAGING_S3_REGION: ${{ secrets.STAGING_S3_REGION }}
+          STAGING_WEB_ORIGINS: ${{ secrets.STAGING_WEB_ORIGINS }}
+          STAGING_PUBLIC_API_BASE_URL: ${{ secrets.STAGING_PUBLIC_API_BASE_URL }}
+          STAGING_ADMIN_EMAILS: ${{ secrets.STAGING_ADMIN_EMAILS }}
+          STAGING_REMOTE_PATH: ${{ secrets.STAGING_REMOTE_PATH }}
+          STAGING_DEPLOY_COMMAND: ${{ secrets.STAGING_DEPLOY_COMMAND }}
+          STAGING_ROLLBACK_COMMAND: ${{ secrets.STAGING_ROLLBACK_COMMAND }}
+        run: |
+          python scripts/render_staging_bundle.py --env-file infra/staging/.env.staging --manifest infra/staging/deploy-manifest.json
+
+      - name: Verify staging deploy command contract
+        env:
+          STAGING_REMOTE_PATH: ${{ secrets.STAGING_REMOTE_PATH }}
+          STAGING_DEPLOY_COMMAND: ${{ secrets.STAGING_DEPLOY_COMMAND }}
+          STAGING_ROLLBACK_COMMAND: ${{ secrets.STAGING_ROLLBACK_COMMAND }}
+        run: python scripts/check_deploy_commands.py --environment staging
+
+      - name: Staging preflight
+        run: python scripts/staging_preflight.py
+
+      - name: Copy deploy bundle to staging host
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.STAGING_SSH_HOST }}
+          username: ${{ secrets.STAGING_SSH_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          source: "infra/staging/docker-compose.staging.yml,infra/staging/.env.staging,infra/staging/deploy-manifest.json"
+          target: ${{ secrets.STAGING_REMOTE_PATH }}
+
+      - name: Deploy on staging host
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.STAGING_SSH_HOST }}
+          username: ${{ secrets.STAGING_SSH_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          script: |
+            set -e
+            mkdir -p "${{ secrets.STAGING_REMOTE_PATH }}"
+            cd "${{ secrets.STAGING_REMOTE_PATH }}"
+            ${{ secrets.STAGING_DEPLOY_COMMAND }}
+
+      - name: Staging smoke
+        id: staging_smoke
+        run: python scripts/smoke_check.py --base-url "${{ secrets.STAGING_PUBLIC_API_BASE_URL }}" --include-attachment
+
+      - name: Roll back staging on smoke failure
+        if: ${{ failure() && steps.staging_smoke.outcome == 'failure' }}
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.STAGING_SSH_HOST }}
+          username: ${{ secrets.STAGING_SSH_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          script: |
+            set -e
+            cd "${{ secrets.STAGING_REMOTE_PATH }}"
+            ${{ secrets.STAGING_ROLLBACK_COMMAND }}

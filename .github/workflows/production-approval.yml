@@ -1,0 +1,47 @@
+name: Production Approval Gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      staging_api_base_url:
+        description: "Staging API URL used for final smoke verification"
+        required: true
+        type: string
+      release_tag:
+        description: "Release tag or image tag under review"
+        required: true
+        type: string
+
+jobs:
+  governance-check:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend deps
+        run: pip install -r services/api/requirements.txt
+
+      - name: Release governance check
+        run: python scripts/release_governance_check.py
+
+      - name: Verify production deploy command contract
+        env:
+          PRODUCTION_REMOTE_PATH: ${{ secrets.PRODUCTION_REMOTE_PATH }}
+          PRODUCTION_DEPLOY_COMMAND: ${{ secrets.PRODUCTION_DEPLOY_COMMAND }}
+          PRODUCTION_ROLLBACK_COMMAND: ${{ secrets.PRODUCTION_ROLLBACK_COMMAND }}
+        run: python scripts/check_deploy_commands.py --environment production
+
+      - name: Final staging smoke
+        run: python scripts/smoke_check.py --base-url "${{ inputs.staging_api_base_url }}" --include-attachment
+
+      - name: Approval summary
+        run: |
+          echo "Release tag: ${{ inputs.release_tag }}"
+          echo "Governance check, production command contract, and final staging smoke passed."
