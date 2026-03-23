@@ -13,12 +13,15 @@ The vertical app is the lighthouse product. The launch system is the reusable en
 
 ## Recommended monetization order
 
-### 1. Primary business model: B2B2C SaaS
+### 1. Primary business model: buyer-agent-first B2B2C SaaS
 
-Sell the workflow to repeated-use operators:
+Sell the workflow first to one repeated-use operator profile:
+
+- independent buyer agents who run repeated weekly visits and need same-day client-ready summaries
+
+Keep these as second-wave personas after the buyer-agent motion is proven:
 
 - small investor teams
-- buyer agents
 - research assistants or partner reviewers
 - boutique acquisition or diligence teams
 
@@ -29,6 +32,13 @@ Let those operators generate client-facing or decision-facing outputs:
 - branded review packets
 
 This is stronger than a pure consumer subscription because the professional user has repeated workflow frequency and clearer ROI.
+
+### Why buyer agent first
+
+- weekly visit frequency is easier to observe than one-off buyer behavior
+- the same operator often captures the visit and sends the summary, so onboarding is simpler
+- the value story is concrete: faster report turnaround, less note loss, cleaner client follow-up
+- the first paid pilot can stay single-operator and avoid team-collaboration scope creep
 
 ### 2. Secondary business model: transaction-based consumer pack
 
@@ -80,7 +90,9 @@ Inference:
 
 Treat `individual buyers` as validation and top-of-funnel users.
 
-Treat `small professional operators` as the primary recurring revenue customer.
+Treat `independent buyer agents` as the first recurring revenue customer.
+
+Treat `small investor teams` as the next expansion segment once the single-operator motion converts.
 
 ## Connection to Codex Launch OS
 

@@ -39,7 +39,9 @@ Its job is to prove one bounded product can move from brief through launch-readi
 - run status: `execution_ready`
 - current phase: `local_pilot_preparation`
 - completed slices: project/property CRUD, visit workflow, comparison/report payloads, binary attachment uploads, upload failure recovery UX, admin ops console, role-based authorization, staging deploy bundle, deploy command contracts, v1 offline boundary decision
-- next tasks: `local_pilot_readiness`, `launch_artifact_rehearsal`, `first_payer_interviews`
+- next tasks: founder-owned local walkthrough and buyer-agent outreach handoff
+- locked payer: `independent buyer agent`
+- working pilot offer: `2-week founder-led paid pilot` at internal ask `KRW 149,000`
 
 ## Local commands
 
@@ -58,8 +60,8 @@ Its job is to prove one bounded product can move from brief through launch-readi
 
 - validate whether staging or pilot evidence justifies expanding beyond browser-local autosave after v1
 - defer GitHub environment secrets and remote staging until local walkthroughs and pilot demand justify a hosted environment
-- validate the first paying ICP through interviews or paid pilots
-- complete launch artifacts for landing copy, onboarding, analytics, support, and pilot outreach
+- run the seeded buyer-agent outreach list and replace aliases with real contact names before sending
+- capture objections from the first workflow reviews and decide whether the pilot ask holds
 
 ## Launch OS integration
 

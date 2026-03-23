@@ -53,11 +53,17 @@
 - blocker: none currently. `offline_support_decision` is closed for v1 as `online-first + browser-local autosave/restore`.
 - non-blocker: should report export remain web-only in v1?
 
+## Locked decisions for this run
+- first paying ICP: `independent buyer agent`
+- first working offer: `2-week founder-led paid pilot`
+- internal working ask: `KRW 149,000`
+- seeded outreach list: `5 founder-owned lead slots prepared on 2026-03-23`
+
 ## Task graph
 1. rehearse a local demo path for project -> property -> visit -> comparison -> report
 2. refresh local smoke coverage for autosave restore and attachment retry
 3. finalize launch artifacts for landing, onboarding, analytics, support, and pilots
-4. validate first payer and first paid offer through interviews or local pilots
+4. run founder-owned outreach against the 5 seeded lead slots
 5. defer staging setup until local walkthroughs produce real pilot demand
 
 ## Parallel lanes

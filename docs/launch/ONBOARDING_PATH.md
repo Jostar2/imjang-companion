@@ -11,6 +11,15 @@ The user reaches value when they:
 
 Time-to-value target: under 20 minutes from first login to first completed visit.
 
+## Current run default persona
+
+Use this persona unless a stronger real lead appears:
+
+- independent buyer agent
+- 4 to 8 visits per month
+- sends same-day follow-up to a client or partner
+- currently uses chat, notes, and photo folders instead of a structured workflow
+
 ## Pilot kickoff prerequisites
 
 Before the first live session, confirm:
@@ -20,6 +29,7 @@ Before the first live session, confirm:
 - at least two candidate properties can be entered during setup
 - the user knows V1 is online-first and same-browser autosave only
 - the founder has one support channel ready for same-day follow-up
+- the pilot offer is stated clearly as `2-week founder-led pilot, KRW 149,000`
 
 ## First-session flow
 
@@ -34,6 +44,19 @@ Before the first live session, confirm:
 9. Open comparison
 10. Open report
 
+## Local demo success definition
+
+The rehearsal counts as successful only if all of these happen in one pass:
+
+1. create one project
+2. add two properties
+3. complete one visit with required sections
+4. confirm draft restore behavior after refresh
+5. confirm attachment retry story
+6. open comparison
+7. open report
+8. make the pilot ask at the end of the walkthrough
+
 ## Facilitated pilot script
 
 Use this for the first 20-minute onboarding call:
@@ -47,6 +70,8 @@ Use this for the first 20-minute onboarding call:
 5. Pause after completion and ask what they would usually do next.
 6. Open comparison and report.
 7. Ask what is still missing before they would trust this on a live route.
+8. Make the ask:
+   "If this replaced part of your current visit-to-report workflow, would you test it in a 2-week guided pilot at KRW 149,000?"
 
 ## Instrumentation checkpoints
 
@@ -69,6 +94,12 @@ Use this for the first 20-minute onboarding call:
   - refresh the page in the same browser and narrate what was restored and what was not.
 - If attachment upload fails:
   - confirm visit data was still saved, then walk through retry.
+
+## Rehearsal schedule
+
+- `2026-03-24`: founder runs one solo local rehearsal
+- `2026-03-25`: founder runs one timed rehearsal with the scripted pilot ask
+- `2026-03-26` onward: only live workflow reviews after both rehearsals are clean
 
 ## Friction points to watch
 

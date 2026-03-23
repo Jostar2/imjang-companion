@@ -9,6 +9,7 @@ Position it as:
 - a buyer-side due diligence workspace
 - a field-visit comparison and reporting system
 - a replacement for scattered notes, gallery photos, and spreadsheets
+- a buyer-agent-first workflow for repeated visit reporting
 
 ## Priority channels
 
@@ -16,7 +17,10 @@ Position it as:
 
 Target:
 
-- buyer agents
+- independent buyer agents first
+
+Secondary after the first buyer-agent conversations:
+
 - small investor operators
 - diligence-heavy property scouts
 
@@ -37,7 +41,7 @@ Topics:
 
 Purpose:
 
-- acquire individual buyers
+- capture search language and objections, not the first revenue
 - collect language that sharpens the ICP
 - build credibility for outbound outreach
 
@@ -53,13 +57,13 @@ This is a later channel, not the first one.
 
 ## Launch funnel
 
-1. landing page visit
-2. waitlist or demo request
-3. interview or concierge pilot
-4. activated workspace
-5. paid buyer pack or paid monthly plan
-6. shared report
-7. referral or team expansion
+1. founder target list
+2. outbound message
+3. 20-minute workflow review
+4. 2-week paid pilot
+5. activated workspace
+6. same-day report usage
+7. `Solo Pro` conversion
 
 ## Key messages
 
@@ -69,17 +73,41 @@ This is a later channel, not the first one.
 
 ## Early experiments
 
-- interview 10 buyers, 10 buyer agents, and 10 investor operators
-- publish one landing page with two pricing paths: buyer pack vs. team workflow
-- run at least three concierge pilots before self-serve launch
-- measure which persona reaches report generation fastest
+- between `2026-03-24` and `2026-03-31`, book 5 buyer-agent workflow reviews
+- keep one investor-operator conversation as a secondary comparison, not the main track
+- use one landing page with buyer-agent-first messaging before splitting the offer
+- run the first local demo rehearsal before the first live workflow review
+- do not widen the ICP until the first buyer-agent pilot is either won or clearly rejected
+
+## Next 7-day founder schedule
+
+### `2026-03-24`
+
+- send first 3 outbound messages to buyer-agent lead slots
+- rehearse the local demo once end to end
+
+### `2026-03-25`
+
+- send 2 follow-up messages
+- ask for 2 workflow review slots on `2026-03-26` and `2026-03-27`
+
+### `2026-03-26` to `2026-03-27`
+
+- run workflow reviews
+- capture objections in the contact tracker immediately after each call
+
+### `2026-03-28` to `2026-03-31`
+
+- make a paid pilot ask to the strongest buyer-agent lead
+- only contact the investor-operator backup lead if buyer-agent response is weak
 
 ## Metrics
 
 - landing page to waitlist rate
-- waitlist to interview rate
-- interview to pilot rate
-- pilot to paid rate
+- outbound reply rate
+- workflow review booked rate
+- workflow review to paid pilot rate
+- paid pilot to `Solo Pro` rate
 - activation rate to first completed visit
 - report share rate
 
