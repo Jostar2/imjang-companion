@@ -1,22 +1,22 @@
 {
   "task_id": "FE-002",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "frontend_worker",
   "source_model": "gpt-5.3-codex-spark",
   "reasoning_effort": "medium",
-  "goal": "Implement the mobile-first visit checklist flow with required section completion, score summary, red flags, and recommendation notes.",
+  "goal": "Implement visit checklist and scoring flow.",
   "acceptance_subset": [
     "AC-002",
     "AC-003"
   ],
   "read_files": [
-    "projects/imjang-companion/docs/ADR/ADR-001.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "docs/ADR/ADR-001.md",
+    "runs/run-001-real-estate-imjang/PRD.md",
+    "runs/run-001-real-estate-imjang/acceptance.yaml",
     "apps/web/src/app/visits/page.tsx",
-    "apps/web/src/components/projects/project-shell.tsx",
+    "apps/web/src/components/visits/checklist-workspace.tsx",
     "apps/web/src/app/globals.css"
   ],
   "write_scope": [
@@ -25,15 +25,14 @@
     "apps/web/src/app/globals.css"
   ],
   "interfaces": [
-    "Checklist section cards",
-    "Section score entry",
-    "Completion gate before visit close",
-    "Red flag and recommendation note fields"
+    "Visit checklist workspace",
+    "Visit section note and score inputs",
+    "Attachment upload and retry interactions"
   ],
   "constraints": [
-    "Use placeholder data contracts if backend is not yet wired.",
-    "Mobile-first layout is required.",
-    "Do not implement comparison or report UI in this slice."
+    "Keep capture mobile-first.",
+    "Support browser-local autosave and same-browser restore.",
+    "Do not add cross-device sync or offline upload."
   ],
   "verification": [
     "npm run web:lint",
@@ -45,9 +44,9 @@
     "max_retries": 1
   },
   "notes": {
-    "manager_summary": "This slice should prove that the checklist can enforce required completion before a visit is closed.",
+    "manager_summary": "Capture integrity is the protected lane. Keep read-side polish secondary to completion and retry UX.",
     "residual_ambiguity": [
-      "Score weighting can remain flat for MVP."
+      "Attachment progress and retry copy may still need staging feedback."
     ]
   }
 }

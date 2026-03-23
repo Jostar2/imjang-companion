@@ -1,7 +1,7 @@
 {
   "task_id": "INF-001",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "infra_release",
   "source_model": "gpt-5.4",
@@ -11,19 +11,19 @@
     "task-graph:INF-001"
   ],
   "read_files": [
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/release-strategy.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/risk-register.md"
+    "runs/run-001-real-estate-imjang/release-strategy.md",
+    "runs/run-001-real-estate-imjang/risk-register.md"
   ],
   "write_scope": [
     "infra/**",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/**",
-    "projects/imjang-companion/docs/RELEASE_CHECKLIST.md",
+    "runs/run-001-real-estate-imjang/**",
+    "docs/RELEASE_CHECKLIST.md",
     "docker-compose.yml"
   ],
   "interfaces": [
     "Deliver infra/README.md",
-    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/release-notes.md",
-    "Deliver projects/imjang-companion/docs/RELEASE_CHECKLIST.md"
+    "Deliver runs/run-001-real-estate-imjang/release-notes.md",
+    "Deliver docs/RELEASE_CHECKLIST.md"
   ],
   "constraints": [
     "Keep work bounded to task `INF-001`.",

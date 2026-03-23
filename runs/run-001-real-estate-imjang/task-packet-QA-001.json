@@ -1,7 +1,7 @@
 {
   "task_id": "QA-001",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "qa_worker",
   "source_model": "gpt-5.3-codex",
@@ -11,17 +11,17 @@
     "task-graph:QA-001"
   ],
   "read_files": [
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/task-graph.json"
+    "runs/run-001-real-estate-imjang/acceptance.yaml",
+    "runs/run-001-real-estate-imjang/task-graph.json"
   ],
   "write_scope": [
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/qa/**",
+    "runs/run-001-real-estate-imjang/qa/**",
     "services/api/tests/**",
     "apps/web/src/**"
   ],
   "interfaces": [
-    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/qa/regression-matrix.md",
-    "Deliver projects/imjang-companion/runs/run-001-real-estate-imjang/qa/smoke-plan.md"
+    "Deliver runs/run-001-real-estate-imjang/qa/regression-matrix.md",
+    "Deliver runs/run-001-real-estate-imjang/qa/smoke-plan.md"
   ],
   "constraints": [
     "Keep work bounded to task `QA-001`.",

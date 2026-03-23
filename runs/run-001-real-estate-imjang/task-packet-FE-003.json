@@ -1,37 +1,40 @@
 {
   "task_id": "FE-003",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "frontend_worker",
   "source_model": "gpt-5.3-codex-spark",
   "reasoning_effort": "medium",
-  "goal": "Implement comparison and report shells that summarize scored visits and highlight red flags.",
+  "goal": "Implement comparison and summary report view.",
   "acceptance_subset": [
     "AC-004",
     "AC-005"
   ],
   "read_files": [
-    "projects/imjang-companion/docs/ADR/ADR-001.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "docs/ADR/ADR-001.md",
+    "runs/run-001-real-estate-imjang/PRD.md",
+    "runs/run-001-real-estate-imjang/acceptance.yaml",
     "apps/web/src/app/comparison/page.tsx",
     "apps/web/src/app/report/page.tsx",
-    "apps/web/src/app/globals.css"
+    "apps/web/src/components/report/comparison-board.tsx",
+    "apps/web/src/components/report/report-preview.tsx"
   ],
   "write_scope": [
-    "apps/web/src/app/comparison/page.tsx",
-    "apps/web/src/app/report/page.tsx",
+    "apps/web/src/app/comparison/**",
+    "apps/web/src/app/report/**",
     "apps/web/src/components/report/**",
     "apps/web/src/app/globals.css"
   ],
   "interfaces": [
-    "Comparison cards with score and red flags",
-    "Visit summary report view"
+    "Comparison board",
+    "Report preview",
+    "Read-only report summary"
   ],
   "constraints": [
-    "Keep this slice presentation-only for now.",
-    "Use sample visit data until backend report payloads are ready."
+    "Do not widen into PDF export or collaboration.",
+    "Keep report output tied to completed visit evidence.",
+    "Prefer project-scoped read models over owner-wide placeholders."
   ],
   "verification": [
     "npm run web:lint",
@@ -43,9 +46,9 @@
     "max_retries": 1
   },
   "notes": {
-    "manager_summary": "This slice should make comparison and report tangible without widening backend scope.",
+    "manager_summary": "This slice should improve decision confidence, not create a new export product.",
     "residual_ambiguity": [
-      "Final score weighting and narrative formatting can change after product feedback."
+      "Client-grade report polish still needs staging or pilot feedback."
     ]
   }
 }

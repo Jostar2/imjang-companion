@@ -1,7 +1,7 @@
 {
   "task_id": "FE-001",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "frontend_worker",
   "source_model": "gpt-5.3-codex-spark",
@@ -11,9 +11,9 @@
     "AC-001"
   ],
   "read_files": [
-    "projects/imjang-companion/docs/ADR/ADR-001.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml",
+    "docs/ADR/ADR-001.md",
+    "runs/run-001-real-estate-imjang/PRD.md",
+    "runs/run-001-real-estate-imjang/acceptance.yaml",
     "apps/web/src/app/projects/page.tsx",
     "apps/web/src/app/properties/page.tsx",
     "apps/web/src/components/projects/project-shell.tsx",

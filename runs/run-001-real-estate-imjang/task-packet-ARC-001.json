@@ -1,7 +1,7 @@
 {
   "task_id": "ARC-001",
   "project_slug": "imjang-companion",
-  "project_root": "projects/imjang-companion",
+  "project_root": ".",
   "run_id": "run-001-real-estate-imjang",
   "owner_agent": "architect",
   "source_model": "gpt-5.4",
@@ -11,19 +11,19 @@
     "task-graph:ARC-001"
   ],
   "read_files": [
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/brief.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/PRD.md",
-    "projects/imjang-companion/runs/run-001-real-estate-imjang/acceptance.yaml"
+    "runs/run-001-real-estate-imjang/brief.md",
+    "runs/run-001-real-estate-imjang/PRD.md",
+    "runs/run-001-real-estate-imjang/acceptance.yaml"
   ],
   "write_scope": [
-    "ADR-001.md",
-    "risk-register.md",
-    "release-strategy.md"
+    "runs/run-001-real-estate-imjang/ADR-001.md",
+    "runs/run-001-real-estate-imjang/risk-register.md",
+    "runs/run-001-real-estate-imjang/release-strategy.md"
   ],
   "interfaces": [
-    "Deliver ADR-001.md",
-    "Deliver risk-register.md",
-    "Deliver release-strategy.md"
+    "Deliver runs/run-001-real-estate-imjang/ADR-001.md",
+    "Deliver runs/run-001-real-estate-imjang/risk-register.md",
+    "Deliver runs/run-001-real-estate-imjang/release-strategy.md"
   ],
   "constraints": [
     "Keep work bounded to task `ARC-001`.",
